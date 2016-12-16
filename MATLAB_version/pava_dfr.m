@@ -12,6 +12,7 @@ function [time2, ttot2, deaths2] = pava_dfr(time_die,ttot,deaths)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 len  = length(ttot);
+
 if len == 1,
     time2   = time_die;
     ttot2   = ttot;
@@ -45,7 +46,6 @@ else
     time2   = time_die;
     ttot2   = ttot;
     deaths2 = deaths;
-   
 end
 
 
