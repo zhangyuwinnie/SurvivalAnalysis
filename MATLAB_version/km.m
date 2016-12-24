@@ -13,6 +13,7 @@ end
 timesort = sort(tmptime);
 %timesort(1)=[];
 realt = unique(timesort);
+
 %%% input %%%
 %%% realt:  sorted times when death occur,
 %%% deaths: corresponding number of deaths at the sorted times
@@ -40,18 +41,12 @@ difnidi = zeros(ldea,1);
 for i   = 1:ldea,
     numberp = ones(length(censor),1);
     for ii = 1:length(censor),
-        %if time(ii) <= realt(i),
-        %    numberp(ii) = 0;
-        %    if censor(ii) == 1,
-        %       diseq(i) = diseq(i)+1; % this is the cumulative deaths
-        %    end
-        %end
-        if time(ii) < realt(i),
+        if time(ii) <= realt(i),
             numberp(ii) = 0;
+            if censor(ii) == 1,
+                diseq(i) = diseq(i)+1; % this is the cumulative deaths
+            end
         end
-        if time(ii) <= realt(i) &  censor(ii) == 1,
-            diseq(i) = diseq(i)+1;
-        end        
         niseq(i) = sum(numberp);
     end
 end
@@ -68,7 +63,7 @@ for i = 1:ldea,
     elekm(i) = difnidi(i)/niseq(i);
     pos_km(i) = prod(elekm(1:i));
 end
-pos_km
+
 % given pos_km, plot kaplan-meier curve
 upperx              = zeros(ldea+1,1);
 lowerx              = zeros(ldea+1,1);
@@ -112,7 +107,7 @@ ypart(2*ldea+1) = lowery(ldea);
 ypart(2*ldea+2) = lowery(ldea+1);
 
 
-plot(xpart,ypart,'k');
+plot(xpart,ypart,'k','LineWidth',2);
 hold on;
 
 %plot censored data 
